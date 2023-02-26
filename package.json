@@ -40,9 +40,9 @@
       "last 1 safari version"
     ]
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "description": "Dashboard for my plants.",
   "main": "index.js",
-  "author": "",
+  "author": "Erin Beachkofski",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.20"

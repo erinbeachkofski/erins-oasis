@@ -1,34 +1,20 @@
-const express = require("express");
-const cors = require("cors");
-const mysql = require('mysql2');
+const express = require('express');
 const app = express();
-const config = require('../config.json');
+const port = 3001;
+const cors = require("cors");
+const plant_model = require('./plant_model.js');
 
 app.use(cors());
+app.use(express.json());
 
 app.get("/api/", (req, res) => {
-    const data = {
-        message: 'Hello from the server!'
-    };
-    res.json(data);
+  plant_model.getPlants()
+    .then(response => {
+      res.json(response);
+    })
 });
 
-app.listen(3001, () => {
+
+app.listen(port, () => {
     console.log("Server is listening on port 3001");
 });
-
-// MySQL connection 
-const connection = mysql.createConnection({
-  host: config.mysql.host,
-  user: config.mysql.user,
-  password: config.mysql.password,
-  database: config.mysql.database
-});
-
-connection.connect(function(err) {
-    if (err) {
-      console.error('error connecting: ' + err.stack);
-      return;
-    }
-    console.log('connected as id ' + connection.threadId);
-  });
