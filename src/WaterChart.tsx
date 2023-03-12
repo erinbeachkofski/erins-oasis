@@ -6,15 +6,11 @@ import { GridRows, GridColumns } from "@visx/grid";
 import { scaleTime, scaleLinear } from "@visx/scale";
 import { LinearGradient } from "@visx/gradient";
 import { max, extent } from "d3-array";
-import { timeFormat } from "d3-time-format";
 
 export const background = "#3b6978";
 export const background2 = "#204051";
 export const accentColor = "#edffea";
 export const accentColorDark = "#75daad";
-
-// util
-const formatDate = timeFormat("%b %d, '%y");
 
 // accessors
 const getWaterDate = (wd: WaterData) => new Date(wd.date);
