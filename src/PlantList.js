@@ -1,4 +1,3 @@
-import CuteFlower from "./assets/images/cute_flower.png";
 import React, { useState, useEffect } from "react";
 import { getApi } from "./api";
 import WaterChart from "./WaterChart.tsx";
@@ -6,7 +5,7 @@ import WaterChart from "./WaterChart.tsx";
 /**
  * Create Plant List Component
  */
-export default function PlantList() {
+export default function PlantGrid() {
   const [plantsData, setPlantsData] = useState([]);
   const [plantArray, setPlantArray] = useState([]);
 
@@ -19,35 +18,42 @@ export default function PlantList() {
   useEffect(() => {
     setPlantArray(
       plantsData.map((plant) => ({
-        id: plant.id,
-        description: plant.description,
-        room: plant.room,
-        plant_size: plant.plant_size,
-        water_interval: plant.water_interval,
-        days_left: plant.days_left,
-        last_watered: plant.last_watered,
-        image: plant.image,
+        id: plant?.id ?? null,
+        description: plant?.description ?? null,
+        room: plant?.room ?? null,
+        plant_size: plant?.plant_size ?? null,
+        water_interval: plant?.water_interval ?? null,
+        days_left: plant?.days_left ?? null,
+        last_watered: plant?.last_watered ?? null,
+        image: plant?.image ?? null,
       }))
     );
   }, [plantsData]);
 
-  // TODO: Initialize plantList by putting array elements into html
-  const plantList = plantArray.map((plantElement) => (
-    <div key={"plant-" + plantElement.id}>
-      {
-        <Plant
-          id={plantElement.id}
-          description={plantElement.description}
-          room={plantElement.room}
-          plant_size={plantElement.plant_size}
-          water_interval={plantElement.water_interval}
-          days_left={plantElement.days_left}
-          last_watered={plantElement.last_watered}
-          image={plantElement.image}
-        />
-      }
+  if (plantsData.length % 2 !== 0) {
+    plantsData.push(null);
+  }
+
+  const plantList = (
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
+      {plantArray.map((plantElement, index) => (
+        <div key={index}>
+          {plantElement && (
+            <Plant
+              id={plantElement?.id}
+              description={plantElement?.description}
+              room={plantElement?.room}
+              plant_size={plantElement?.plant_size}
+              water_interval={plantElement?.water_interval}
+              days_left={plantElement?.days_left}
+              last_watered={plantElement?.last_watered}
+              image={plantElement?.image}
+            />
+          )}
+        </div>
+      ))}
     </div>
-  ));
+  );
 
   return <div>{plantList}</div>;
 }
@@ -56,11 +62,9 @@ export default function PlantList() {
  * Creates Plant Component
  */
 function Plant(props) {
-    console.log(props);
+  console.log(props);
   return (
-    <div>
-      {/* TODO: replace CuteFlower with image url */}
-      <img src={CuteFlower} alt="cute flower" width={200} height={200} />
+    <div class="plant-item">
       <p>
         id={props.id}
         <br />
@@ -77,7 +81,10 @@ function Plant(props) {
         last_watered={props.last_watered}
         <br />
       </p>
-      <WaterStatus />
+      <WaterStatus 
+        water_interval={props.water_interval}
+        last_watered={props.last_watered}  
+      />
       <WaterButton />
     </div>
   );
@@ -86,17 +93,19 @@ function Plant(props) {
 /**
  * Creates Water Status Component
  */
-function WaterStatus() {
+function WaterStatus(props) {
   return (
     <div>
-      <p>{getDaysLeft()} day(s) left until next watering</p>
+      <button>{getDaysLeft(props.water_interval, props.last_watered)} day(s) left until next watering</button>
       <WaterChart width={400} height={400} />
     </div>
   );
 }
 
-const getDaysLeft = () => {
-  return 5;
+const getDaysLeft = (water_interval, last_watered) => {
+  const msDiff = new Date().setHours(0,0,0,0) - new Date(last_watered).setHours(0,0,0,0);
+  const daysDiff = msDiff / (1000 * 60 * 60 * 24);
+  return water_interval - daysDiff;
 };
 
 /**
