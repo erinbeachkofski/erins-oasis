@@ -1,6 +1,7 @@
 import CuteFlower from "./assets/images/cute_flower.png";
 import React, { useState, useEffect } from "react";
 import { getApi } from "./api";
+import WaterChart from "./WaterChart.tsx";
 
 /**
  * Create Plant List Component
@@ -21,9 +22,10 @@ export default function PlantList() {
         id: plant.id,
         description: plant.description,
         room: plant.room,
-        waterInterval: plant.water_interval,
-        daysLeft: plant.days_left,
-        lastWatered: plant.last_watered,
+        plant_size: plant.plant_size,
+        water_interval: plant.water_interval,
+        days_left: plant.days_left,
+        last_watered: plant.last_watered,
         image: plant.image,
       }))
     );
@@ -37,9 +39,10 @@ export default function PlantList() {
           id={plantElement.id}
           description={plantElement.description}
           room={plantElement.room}
-          waterInterval={plantElement.water_interval}
-          daysLeft={plantElement.days_left}
-          lastWatered={plantElement.last_watered}
+          plant_size={plantElement.plant_size}
+          water_interval={plantElement.water_interval}
+          days_left={plantElement.days_left}
+          last_watered={plantElement.last_watered}
           image={plantElement.image}
         />
       }
@@ -53,6 +56,7 @@ export default function PlantList() {
  * Creates Plant Component
  */
 function Plant(props) {
+    console.log(props);
   return (
     <div>
       {/* TODO: replace CuteFlower with image url */}
@@ -64,11 +68,13 @@ function Plant(props) {
         <br />
         room={props.room}
         <br />
-        waterInterval={props.water_interval}
+        plant_size={props.plant_size}
         <br />
-        daysLeft={props.days_left}
+        water_interval={props.water_interval}
         <br />
-        lastWatered={props.last_watered}
+        days_left={props.days_left}
+        <br />
+        last_watered={props.last_watered}
         <br />
       </p>
       <WaterStatus />
@@ -84,6 +90,7 @@ function WaterStatus() {
   return (
     <div>
       <p>{getDaysLeft()} day(s) left until next watering</p>
+      <WaterChart width={400} height={400} />
     </div>
   );
 }
