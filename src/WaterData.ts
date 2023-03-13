@@ -1,18 +1,13 @@
 export interface WaterData {
     date: string;
-    daysLeft: number;
+    percentage: number;
   }
   
-  const waterData: WaterData[] = [
-    { date: "2007-04-24T07:00:00.000Z", daysLeft: 7 },
-    { date: "2007-04-25T07:00:00.000Z", daysLeft: 6 },
-    { date: "2007-04-26T07:00:00.000Z", daysLeft: 4 },
-    { date: "2007-04-27T07:00:00.000Z", daysLeft: 3 },
-    { date: "2007-04-28T07:00:00.000Z", daysLeft: 2.5 },
-    { date: "2007-04-29T07:00:00.000Z", daysLeft: 2 },
-    { date: "2007-04-30T07:00:00.000Z", daysLeft: 1 },
-    { date: "2007-05-01T07:00:00.000Z", daysLeft: 0 }
-  ];
-  
-  export default waterData;
-  
+const waterData = [
+  { date: "2023-03-13T07:00:00.000Z", percentage: 100 },
+  { date: "2023-03-14T07:00:00.000Z", percentage: 80 },
+  { date: "2023-03-15T07:00:00.000Z", percentage: 60 },
+  { date: "2023-03-16T07:00:00.000Z", percentage: 40 }
+];
+
+export default waterData;

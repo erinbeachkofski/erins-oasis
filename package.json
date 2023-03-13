@@ -21,8 +21,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start:dev": "nodemon ./server/index.js"
@@ -46,12 +46,23 @@
     ]
   },
   "description": "Dashboard for my plants.",
-  "main": "index.js",
+  "main": "index.tsx",
   "author": "Erin Beachkofski",
   "license": "ISC",
   "devDependencies": {
+    "@types/cors": "^2.8.13",
     "@types/d3-array": "^3.0.4",
     "@types/d3-time-format": "^4.0.0",
-    "nodemon": "^2.0.20"
+    "@types/mysql": "^2.15.21",
+    "@types/react-dom": "^18.0.11",
+    "css-loader": "^6.7.3",
+    "file-loader": "^6.2.0",
+    "nodemon": "^2.0.20",
+    "style-loader": "^3.3.2",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.5",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.10.0"
   }
 }

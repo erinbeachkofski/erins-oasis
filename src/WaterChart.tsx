@@ -14,7 +14,7 @@ export const accentColorDark = "#75daad";
 
 // accessors
 const getWaterDate = (wd: WaterData) => new Date(wd.date);
-const getDaysLeft = (wd: WaterData) => wd.daysLeft;
+const getPercentage = (wd: WaterData) => wd.percentage;
 
 export type AreaProps = {
   width: number;
@@ -40,10 +40,10 @@ export default function PlantChart({
         domain: extent(waterData, getWaterDate) as [Date, Date]
       });
 
-  const waterDaysLeftScale =
+  const waterPercentageScale =
   scaleLinear({
         range: [innerHeight + margin.top, margin.top],
-        domain: [0, (max(waterData, getDaysLeft) || 0) + innerHeight / 3],
+        domain: [0, (max(waterData, getPercentage) || 0) + innerHeight / 3],
         nice: true
       });
 
@@ -56,7 +56,7 @@ export default function PlantChart({
           width={width}
           height={height}
           fill="url(#area-background-gradient)"
-          rx={14}
+          rx={4}
         />
         <LinearGradient
           id="area-background-gradient"
@@ -71,7 +71,7 @@ export default function PlantChart({
         />
         <GridRows
           left={margin.left}
-          scale={waterDaysLeftScale}
+          scale={waterPercentageScale}
           width={innerWidth}
           strokeDasharray="1,3"
           stroke={accentColor}
@@ -90,8 +90,8 @@ export default function PlantChart({
         <AreaClosed<WaterData>
           data={waterData}
           x={(wd) => waterDateScale(getWaterDate(wd)) ?? 0}
-          y={(wd) => waterDaysLeftScale(getDaysLeft(wd)) ?? 0}
-          yScale={waterDaysLeftScale}
+          y={(wd) => waterPercentageScale(getPercentage(wd)) ?? 0}
+          yScale={waterPercentageScale}
           strokeWidth={1}
           stroke="url(#area-gradient)"
           fill="url(#area-gradient)"
@@ -103,7 +103,6 @@ export default function PlantChart({
           width={innerWidth}
           height={innerHeight}
           fill="transparent"
-          rx={14}
         />
       </svg>
     </div>

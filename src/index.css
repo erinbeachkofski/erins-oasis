@@ -11,3 +11,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.plant {
+  font-size: 16px;
+  text-align: left;
+  padding: 16px;
+}
+
+.plant img {
+  width: 50%;
+  height: auto;
+}
+
+.plant__top {
+  display: flex;
+  flex-direction: row;
+}
+
+.plant__top__left {
+  width: 50%;
+  background-color: green;
+}
+
+.plant__top__right {
+  width: 50%;
+  background-color: blue;
+}
+
+.plant__bottom {
+  background-color: brown;
+}
